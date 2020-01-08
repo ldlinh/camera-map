@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import camera from './Monitoring.png';
 import './App.css';
@@ -10,24 +10,14 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
-import jsmpeg from 'jsmpeg';
-import ReactPlayer from 'react-player'
+// import jsmpeg from 'jsmpeg';
 
-const onMarkerClick = (even) => {
+const onMarkerClick = () => {
 
-  //window.open('rtsp://192.168.10.200/onvif-media/media.amp?streamprofile=Profile2&audio=0', '_blank');
-  //var client = new WebSocket('rtsp://admin:admin@192.168.10.200:554/onvif-media/media.amp?streamprofile=Profile2&audio=0');
-  var client = new WebSocket('ws://192.168.10.72:9998');
-  var canvas = document.querySelector('canvas');
+window.showCamera("ws://localhost:9999")
   
-  canvas.width = 800;
-  canvas.height = 600;
-  var player = new jsmpeg(client, {
-    canvas: canvas 
-  });
 };
 
-const streamURL = 'rtsp://admin:admin@192.168.10.200:554/onvif-media/media.amp?streamprofile=Profile2&audio=0';
 
 const GoogleMapCompoinent = compose(
   withProps({
@@ -59,6 +49,25 @@ const GoogleMapCompoinent = compose(
 ));
 
 function App() {
+
+  useEffect(() => {
+    const script = document.createElement("script");
+
+    script.src = './jsmpeg.min.js'
+    script.async = true;
+
+    document.body.appendChild(script);
+    
+    const script1 = document.createElement("script");
+    script1.type = 'text/javascript';
+    script1.text = `function showCamera(ws) {
+                      var canvas = document.getElementById('videoCanvas');
+                      var player = new JSMpeg.Player(ws, {canvas:canvas, autoplay:true,audio:false,loop: true });
+                    }`
+    document.body.appendChild(script1);
+
+  }, [])
+
   return (
     <div className="App">
         <header></header>
@@ -69,8 +78,7 @@ function App() {
 
         </div>
         <div>
-        <ReactPlayer  url={streamURL} playing />
-        <canvas>
+        <canvas id="videoCanvas">
           </canvas>
         </div>
         </body>
