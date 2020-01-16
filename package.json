@@ -5,24 +5,11 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
-    "@react-google-maps/api": "^1.8.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/googlemaps": "^3.39.0",
-    "@types/markerclustererplus": "^2.1.33",
-    "jsmpeg": "^1.0.0",
-    "jsmpeg-player": "^3.0.3",
-    "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-google-maps": "^9.4.5",
-    "react-native-live-stream": "^1.0.1",
-    "react-player": "^1.14.2",
-    "react-scripts": "3.3.0",
-    "sass": "^1.24.0",
-    "sass-loader": "^8.0.0",
-    "typescript": "^3.7.4"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
