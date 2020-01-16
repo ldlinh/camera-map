@@ -7,6 +7,7 @@ import {
     withGoogleMap,
     GoogleMap,
     Marker,
+    Polyline,
     DirectionsRenderer
 } from "react-google-maps";
 import Modal from './components/Modal'
@@ -39,7 +40,7 @@ const App = () => {
             googleMapURL:
                 "https://maps.googleapis.com/maps/api/js?key=AIzaSyDiInU8M5pi0ATUaLXFgdX95fkvkJD2nKM&v=3.exp&libraries=geometry,drawing,places",
             loadingElement: <div style={{height: `100%`}}/>,
-            containerElement: <div style={{height: `768px`}}/>,
+            containerElement: <div style={{width: "100%", height: "100%", position: "absolute", top: 0, left: 0,}}/>,
             mapElement: <div style={{height: `100%`}}/>
         }),
         withScriptjs,
@@ -47,6 +48,8 @@ const App = () => {
         lifecycle({
 
             componentDidMount() {
+
+
                 const google = window.google;
                 const waypoints = markerList.map(p => ({
                     location: {lat: p.lat, lng: p.lng},
@@ -55,6 +58,12 @@ const App = () => {
                 const origin = waypoints.shift().location;
                 const destination = waypoints.pop().location;
                 const directionsService = new google.maps.DirectionsService();
+                const polylineOptionsActual = new google.maps.Polyline({
+                    strokeColor: 'FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 10
+                });
+                const directionsDisplay = new google.maps.DirectionsRenderer({polylineOptions: polylineOptionsActual})
                 directionsService.route(
                     {
                         origin: origin,
@@ -77,7 +86,8 @@ const App = () => {
     )(props => (
         <GoogleMap
             defaultZoom={18}
-            defaultCenter={{lat: 10.7624939, lng: 106.7020087}}>
+            defaultCenter={{lat: 10.7624939, lng: 106.7020087}}
+            style={{width: "100%", height: "100%", position: "absolute", top: 0, left: 0,}}>
             {props.isMarkerShown && (
                 props.markerList.map(marker =>
                     <Marker
@@ -91,9 +101,23 @@ const App = () => {
             )}
             {
                 props.directions &&
+                // <Polyline
+                //     path={props.directions}
+                //     geodesic={true}
+                //     options={{
+                //         strokeColor: "#ff2343",
+                //         strokeOpacity: 0.8,
+                //         strokeWeight: 5,
+                //         clickable: true
+                //     }}
+                // />
+
                 <DirectionsRenderer
                     directions={props.directions}
+                    color='#ff6600'
                 />
+
+
             }
         </GoogleMap>
     ));
