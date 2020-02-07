@@ -10,6 +10,7 @@ import {
 } from 'react-google-maps'
 import camera from '../Monitoring.png'
 import cameraWarning from '../Monitoring-warning.png'
+import markerCamera from '../iconfinder_map_marker.png'
 
 const Map = compose(
     withProps({
@@ -94,7 +95,15 @@ const Map = compose(
 
                 <DirectionsRenderer
                     directions={directions}
-                    color='#ff6600'
+                    options={{
+                        polylineOptions: {
+                          stokeColor: "#FF0000",
+                          strokeOpacity: 1.0,
+                          strokeWeight: 6
+                        },
+                        markerOptions: { icon: markerCamera },
+                        // icon: { scale: 3 }
+                      }}
                 />
 
 
