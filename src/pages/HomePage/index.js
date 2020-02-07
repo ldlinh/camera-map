@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import GoogleMap from '../../components/Map'
+import socketIOClient from "socket.io-client"
+import axios from 'axios'
 const Home = () => {
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState(null)
+
+    const ENDPOINT = 'http://192.168.10.72:8092'
 
     const onMarkerClick = (id) => {
         window.open(`/camera/${id}/details`, "_blank")
     }
 
     useEffect(() => {
-        setData([
-            {id: 1, lat: 10.7624939, lng: 106.7020087},
-            {id: 2, lat: 10.730930, lng: 106.678224},
-            {id: 3, lat: 10.754230, lng: 106.678125},
-            {id: 4, lat: 10.773106, lng: 106.637726}
-        ])
-    }, [])
+        const socket = socketIOClient(ENDPOINT)
+        socket.on("UpdateStatus", response => {
+            setData(response)
+        })
+        axios.get(`${ENDPOINT}/devices`).then(res => {
+            setData(res.data.data)
+        })
 
+    }, [])
     return (
         <>
             <GoogleMap isMarkerShown onMarkerClick={onMarkerClick} markerList={data} />

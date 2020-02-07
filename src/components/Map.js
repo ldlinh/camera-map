@@ -9,6 +9,7 @@ import {
     DirectionsRenderer
 } from 'react-google-maps'
 import camera from '../Monitoring.png'
+import cameraWarning from '../Monitoring-warning.png'
 
 const Map = compose(
     withProps({
@@ -26,7 +27,7 @@ const Map = compose(
 
             const google = window.google;
             const waypoints = this.props.markerList.map(p => ({
-                location: {lat: p.lat, lng: p.lng},
+                location: {lat: p.lat, lng: p.long},
                 stopover: true
             }));
             const origin = waypoints.shift().location;
@@ -67,10 +68,12 @@ const Map = compose(
                 <Marker
                     key={marker.id}
                     name={'MMSoftDev'}
-                    position={{ lat: marker.lat, lng: marker.lng }}
+                    position={{ lat: marker.lat, lng: marker.long }}
                     title={'MMSoft Development Room'}
-                    icon={{
+                    icon={marker.status == 'active' ? {
                         url: camera
+                    } : {
+                        url: cameraWarning
                     }}
                     onClick={() => onMarkerClick(marker.id)}
                 />
