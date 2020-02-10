@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import ReactPlayer from 'react-player'
 import { Grid, Box } from '@material-ui/core'
-const Detail = () => {
+import axios from 'axios'
+const Detail = ({match}) => {
 
     const [data, setData] = useState({})
-
-    const addScript = () => {
-        const script = document.createElement("script")
-        script.type = 'text/javascript'
-        script.text = `function showCamera(ws) {
-                            var canvas = document.getElementById('videoCanvas')
-                            var player = new JSMpeg.Player(ws, {canvas:canvas, autoplay:true,audio:false,loop: true })
-                        }`
-        document.body.appendChild(script)
-    }
+    const { id } = match.params
     useEffect(() => {
-        setData({hostname: "ws://192.168.10.72:9998"})
-        addScript()
-        window.showCamera("ws://192.168.10.72:9998")
-    }, [])
-    
+        axios.get(`http://192.168.10.72:8092/device/${id}/details`).then(res => setData(res.data.data))
+    }, [match])
     return (
         <Grid
   container
@@ -29,7 +19,7 @@ const Detail = () => {
       height: '900px'
   }}
 >
-<canvas style={{height: '360px'}} id="videoCanvas"></canvas>
+    <ReactPlayer url={data.url} playing controls/>
 </Grid>
     )
 }
