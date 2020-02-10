@@ -76,7 +76,7 @@ const Map = compose(
                     } : {
                         url: cameraWarning
                     }}
-                    onClick={() => onMarkerClick(marker.id)}
+                    onClick={() => onMarkerClick(marker.cameraId)}
                 />
             ))
         )}

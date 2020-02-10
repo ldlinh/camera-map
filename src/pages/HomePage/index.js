@@ -8,8 +8,8 @@ const Home = () => {
 
     const ENDPOINT = 'http://192.168.10.72:8092'
 
-    const onMarkerClick = (id) => {
-        window.open(`/camera/${id}/details`, "_blank")
+    const onMarkerClick = (cameraId) => {
+        window.open(`/camera/${cameraId}/details`, "_blank")
     }
 
     useEffect(() => {
