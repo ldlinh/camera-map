@@ -11,7 +11,7 @@
     "@types/markerclustererplus": "^2.1.33",
     "jsmpeg": "^1.0.0",
     "jsmpeg-player": "^3.0.3",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-google-maps": "^9.4.5",
